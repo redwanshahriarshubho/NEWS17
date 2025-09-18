@@ -31,20 +31,86 @@ header {
   font-weight: bold;
 }
 
+/* Header content wrapper */
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
 /* Navigation */
-nav ul {
+nav {
+  position: relative;
+}
+
+/* Hide checkbox */
+.menu-checkbox {
+  display: none;
+}
+
+/* Menu icon (hamburger) */
+.menu-icon {
+  display: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px;
+  user-select: none;
+}
+
+/* Navigation menu */
+.nav-menu {
   list-style: none;
   display: flex;
   gap: 15px;
 }
 
-nav a {
+.nav-menu a {
   color: white;
   text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
 }
 
-nav a:hover {
+.nav-menu a:hover {
   color: gold;
+  background: rgba(255, 215, 0, 0.1);
+}
+
+/* Auth buttons */
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.login-btn, .signup-btn {
+  padding: 8px 15px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.login-btn {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+}
+
+.login-btn:hover {
+  background: white;
+  color: #222;
+}
+
+.signup-btn {
+  background: gold;
+  color: #222;
+}
+
+.signup-btn:hover {
+  background: #ffd700;
+  transform: translateY(-1px);
 }
 
 /* Main layout */
@@ -68,6 +134,11 @@ nav a:hover {
 .sidebar h3 {
   margin-bottom: 10px;
   border-bottom: 2px solid #ccc;
+  padding-bottom: 5px;
+}
+
+.sidebar ul {
+  list-style: none;
 }
 
 .sidebar a {
@@ -75,6 +146,7 @@ nav a:hover {
   padding: 5px 0;
   color: #333;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .sidebar a:hover {
@@ -86,11 +158,46 @@ nav a:hover {
   background: white;
   padding: 15px;
   border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .content h2 {
   color: blue;
   margin-bottom: 10px;
+}
+
+/* References */
+.references {
+  background: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.references h2 {
+  color: #222;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 5px;
+}
+
+.references ol {
+  padding-left: 20px;
+}
+
+.references li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.cite {
+  color: blue;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.cite:hover {
+  text-decoration: underline;
 }
 
 /* Footer */
@@ -102,16 +209,87 @@ footer {
   margin-top: auto;
 }
 
-/* Responsive (for small screen) */
+/* Responsive design */
 @media (max-width: 768px) {
-  nav ul {
-    flex-direction: column;
-    background: #333;
-    padding: 10px;
-    display: none;
+  header {
+    flex-wrap: wrap;
   }
 
-  nav ul.show {
+  .header-content {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* Show hamburger menu icon */
+  .menu-icon {
+    display: block;
+  }
+
+  /* Hide navigation menu by default */
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #333;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+  }
+
+  /* Show menu when checkbox is checked */
+  .menu-checkbox:checked ~ .nav-menu {
     display: flex;
+  }
+
+  .nav-menu li {
+    width: 100%;
+  }
+
+  .nav-menu li a {
+    display: block;
+    padding: 10px;
+    border-bottom: 1px solid #555;
+    width: 100%;
+  }
+
+  .nav-menu li:last-child a {
+    border-bottom: none;
+  }
+
+  .auth-buttons {
+    gap: 5px;
+  }
+
+  .login-btn, .signup-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .container {
+    margin: 10px auto;
+    padding: 0 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 16px;
+  }
+
+  .header-content {
+    gap: 10px;
+  }
+
+  .auth-buttons {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .login-btn, .signup-btn {
+    padding: 5px 8px;
+    font-size: 11px;
   }
 }
