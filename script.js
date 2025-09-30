@@ -90,31 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Example: Send login data to backend (replace with your API endpoint)
     console.log('Login attempt:', { email, password });
-    // fetch('/api/login', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ email, password })
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   if (data.success) {
-    //     closeModal(loginModal, loginForm, loginError);
-    //     alert('Login successful!');
-    //   } else {
-    //     loginError.textContent = data.message || 'Login failed';
-    //     loginError.classList.remove('hidden');
-    //     loginError.classList.add('animate-shake');
-    //     setTimeout(() => loginError.classList.remove('animate-shake'), 500);
-    //   }
-    // })
-    // .catch(err => {
-    //   loginError.textContent = 'An error occurred';
-    //   loginError.classList.remove('hidden');
-    //   loginError.classList.add('animate-shake');
-    //   setTimeout(() => loginError.classList.remove('animate-shake'), 500);
-    // });
-
-    // For demo purposes, simulate success
     closeModal(loginModal, loginForm, loginError);
     alert('Login submitted (check console for data)');
   });
@@ -144,31 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Example: Send signup data to backend (replace with your API endpoint)
     console.log('Signup attempt:', { email, password });
-    // fetch('/api/signup', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ email, password })
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   if (data.success) {
-    //     closeModal(signupModal, signupForm, signupError);
-    //     alert('Signup successful!');
-    //   } else {
-    //     signupError.textContent = data.message || 'Signup failed';
-    //     signupError.classList.remove('hidden');
-    //     signupError.classList.add('animate-shake');
-    //     setTimeout(() => signupError.classList.remove('animate-shake'), 500);
-    //   }
-    // })
-    // .catch(err => {
-    //   signupError.textContent = 'An error occurred';
-    //   signupError.classList.remove('hidden');
-    //   signupError.classList.add('animate-shake');
-    //   setTimeout(() => signupError.classList.remove('animate-shake'), 500);
-    // });
-
-    // For demo purposes, simulate success
     closeModal(signupModal, signupForm, signupError);
     alert('Signup submitted (check console for data)');
   });
