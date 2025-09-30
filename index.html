@@ -3,189 +3,224 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Redwan Shahriar Shubho is a MERN developer" />
-  <meta name="keywords" content="HTML CSS" />
+  <meta name="description" content="News 17 - Your trusted source for the latest news" />
+  <meta name="keywords" content="News, Bangladesh, International, Sports, Education" />
   <meta name="author" content="Redwan Shahriar Shubho" />
 
-  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts for professional typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom Tailwind config for animations -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dark-bg': '#121212',
+            'dark-surface': '#1e1e1e',
+            'dark-accent': '#bb86fc',
+            'dark-text': '#e0e0e0',
+            'dark-secondary': '#b0b0b0'
+          },
+          animation: {
+            'modal-open': 'modalOpen 0.3s ease-out',
+            'shake': 'shake 0.5s ease-in-out',
+            'fade-in': 'fadeIn 0.5s ease-in'
+          },
+          keyframes: {
+            modalOpen: {
+              '0%': { transform: 'scale(0.95)', opacity: '0' },
+              '100%': { transform: 'scale(1)', opacity: '1' }
+            },
+            shake: {
+              '0%, 100%': { transform: 'translateX(0)' },
+              '25%': { transform: 'translateX(-5px)' },
+              '50%': { transform: 'translateX(5px)' },
+              '75%': { transform: 'translateX(-5px)' }
+            },
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' }
+            }
+          }
+        }
+      }
+    }
+  </script>
   <title>News 17</title>
 </head>
-<body>
-  <header>
-    <div class="logo">📰 News 17</div>
+<body class="bg-dark-bg font-roboto text-dark-text antialiased">
+  <header class="bg-dark-surface text-dark-text sticky top-0 z-50 shadow-lg">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="logo text-3xl font-bold tracking-tight">📰 News 17</div>
 
-    <div class="header-content">
-      <nav>
-        <input type="checkbox" id="menu-toggle" class="menu-checkbox">
-        <label for="menu-toggle" class="menu-icon">☰</label>
-        <ul class="nav-menu">
-          <li><a href="#Desh">Desh</a></li>
-          <li><a href="#Sports">Sports</a></li>
-          <li><a href="#International">International</a></li>
-          <li><a href="#Education">Education</a></li>
-        </ul>
-      </nav>
+      <div class="header-content flex items-center">
+        <nav>
+          <input type="checkbox" id="menu-toggle" class="menu-checkbox hidden">
+          <label for="menu-toggle" class="menu-icon md:hidden text-2xl cursor-pointer hover:text-dark-accent transition">☰</label>
+          <ul class="nav-menu hidden md:flex space-x-6" id="nav-menu">
+            <li><a href="#Desh" class="text-lg hover:text-dark-accent transition duration-300">Desh</a></li>
+            <li><a href="#Sports" class="text-lg hover:text-dark-accent transition duration-300">Sports</a></li>
+            <li><a href="#International" class="text-lg hover:text-dark-accent transition duration-300">International</a></li>
+            <li><a href="#Education" class="text-lg hover:text-dark-accent transition duration-300">Education</a></li>
+          </ul>
+        </nav>
 
-      <div class="auth-buttons">
-        <a href="#login" class="login-btn">Login</a>
-        <a href="#signup" class="signup-btn">Sign Up</a>
+        <div class="auth-buttons ml-6 space-x-3">
+          <button id="login-btn" class="bg-dark-accent hover:bg-purple-500 text-dark-bg px-5 py-2 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition duration-300">Login</button>
+          <button id="signup-btn" class="bg-green-600 hover:bg-green-700 text-dark-bg px-5 py-2 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition duration-300">Sign Up</button>
+        </div>
       </div>
     </div>
   </header>
 
-  <main class="container">
-    <aside class="sidebar">
-      <h3>Categories</h3>
-      <ul>
-        <li><a href="#Desh">Desh</a></li>
-        <li><a href="#Sports">Sports</a></li>
-        <li><a href="#International">International</a></li>
-        <li><a href="#Education">Education</a></li>
+  <!-- Login Modal -->
+  <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm hidden flex items-center justify-center z-50 transition-opacity duration-300">
+    <div class="bg-dark-surface bg-opacity-95 p-8 rounded-2xl shadow-2xl w-full max-w-md transform animate-modal-open">
+      <h2 class="text-3xl font-bold text-dark-text mb-6">Login</h2>
+      <form id="login-form">
+        <div class="mb-5">
+          <label for="login-email" class="block text-sm font-medium text-dark-secondary">Email</label>
+          <input type="email" id="login-email" class="mt-1 block w-full p-3 border border-gray-600 bg-dark-bg text-dark-text rounded-lg focus:ring-2 focus:ring-dark-accent focus:border-dark-accent transition duration-300" placeholder="Enter your email" required>
+        </div>
+        <div class="mb-5">
+          <label for="login-password" class="block text-sm font-medium text-dark-secondary">Password</label>
+          <input type="password" id="login-password" class="mt-1 block w-full p-3 border border-gray-600 bg-dark-bg text-dark-text rounded-lg focus:ring-2 focus:ring-dark-accent focus:border-dark-accent transition duration-300" placeholder="Enter your password" required>
+        </div>
+        <div id="login-error" class="text-red-400 text-sm mb-5 hidden animate-shake"></div>
+        <div class="flex justify-end space-x-3">
+          <button type="button" id="login-cancel" class="bg-gray-600 hover:bg-gray-700 text-dark-text px-5 py-2 rounded-lg shadow hover:shadow-md transform hover:scale-105 transition duration-300">Cancel</button>
+          <button type="submit" class="bg-dark-accent hover:bg-purple-500 text-dark-bg px-5 py-2 rounded-lg shadow hover:shadow-md transform hover:scale-105 transition duration-300">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Signup Modal -->
+  <div id="signup-modal" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm hidden flex items-center justify-center z-50 transition-opacity duration-300">
+    <div class="bg-dark-surface bg-opacity-95 p-8 rounded-2xl shadow-2xl w-full max-w-md transform animate-modal-open">
+      <h2 class="text-3xl font-bold text-dark-text mb-6">Sign Up</h2>
+      <form id="signup-form">
+        <div class="mb-5">
+          <label for="signup-email" class="block text-sm font-medium text-dark-secondary">Email</label>
+          <input type="email" id="signup-email" class="mt-1 block w-full p-3 border border-gray-600 bg-dark-bg text-dark-text rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-500 transition duration-300" placeholder="Enter your email" required>
+        </div>
+        <div class="mb-5">
+          <label for="signup-password" class="block text-sm font-medium text-dark-secondary">Password</label>
+          <input type="password" id="signup-password" class="mt-1 block w-full p-3 border border-gray-600 bg-dark-bg text-dark-text rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-500 transition duration-300" placeholder="Enter your password" required>
+        </div>
+        <div class="mb-5">
+          <label for="signup-confirm-password" class="block text-sm font-medium text-dark-secondary">Confirm Password</label>
+          <input type="password" id="signup-confirm-password" class="mt-1 block w-full p-3 border border-gray-600 bg-dark-bg text-dark-text rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-500 transition duration-300" placeholder="Confirm your password" required>
+        </div>
+        <div id="signup-error" class="text-red-400 text-sm mb-5 hidden animate-shake"></div>
+        <div class="flex justify-end space-x-3">
+          <button type="button" id="signup-cancel" class="bg-gray-600 hover:bg-gray-700 text-dark-text px-5 py-2 rounded-lg shadow hover:shadow-md transform hover:scale-105 transition duration-300">Cancel</button>
+          <button type="submit" class="bg-green-600 hover:bg-green-700 text-dark-bg px-5 py-2 rounded-lg shadow hover:shadow-md transform hover:scale-105 transition duration-300">Sign Up</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <main class="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 animate-fade-in">
+    <aside class="sidebar w-full md:w-1/4 bg-dark-surface p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold mb-4 text-dark-text">Categories</h3>
+      <ul class="space-y-2">
+        <li><a href="#Desh" class="text-dark-accent hover:text-purple-400 hover:underline transition duration-300">Desh</a></li>
+        <li><a href="#Sports" class="text-dark-accent hover:text-purple-400 hover:underline transition duration-300">Sports</a></li>
+        <li><a href="#International" class="text-dark-accent hover:text-purple-400 hover:underline transition duration-300">International</a></li>
+        <li><a href="#Education" class="text-dark-accent hover:text-purple-400 hover:underline transition duration-300">Education</a></li>
       </ul>
     </aside>
 
-    <section id="Desh" class="content">
-      <article>
-        <h2>Desh news</h2>
+    <div class="content w-full md:w-3/4 space-y-8">
+      <section id="Desh">
+        <article class="bg-dark-surface p-6 rounded-lg shadow-md">
+          <h2 class="text-2xl font-bold mb-4 text-dark-text">Desh News</h2>
+          <p class="mb-4 text-dark-secondary">
+            <strong>47th BCS preliminary exam to be held tomorrow</strong><br>
+            The preliminary examination of the 47th Bangladesh Civil Service (BCS) will be held on 19 September, Friday...
+            <a class="cite text-dark-accent hover:underline" href="#ref1"><sup>[1]</sup></a>
+          </p>
+          <p class="mb-4 text-dark-secondary">
+            <strong>Accommodation crisis at Rajshahi University: 68pc students live off-campus</strong><br>
+            Sakibul Hasan, a student of the 2021–22 academic year in the Department of Persian Language and Literature...
+            <a class="cite text-dark-accent hover:underline" href="#ref2"><sup>[2]</sup></a>
+          </p>
+          <p class="text-dark-secondary">
+            <strong>Chief Adviser to hold meeting with 7 more political parties Tuesday</strong><br>
+            Chief Adviser Professor Muhammad Yunus will hold a meeting with leaders of seven more political parties...
+            <a class="cite text-dark-accent hover:underline" href="#ref3"><sup>[3]</sup></a>
+          </p>
+        </article>
+      </section>
 
-        <p>
-          <strong>47th BCS preliminary exam to be held tomorrow</strong>
-          The preliminary examination of the 47th Bangladesh Civil Service (BCS) will be held on 19 September, Friday.
-          The two-hour Multiple Choice Question (MCQ) test will be held from 10:00 am to 12:00 pm simultaneously at 246 centres in eight divisional headquarters across the country.
-         <a class="cite" href="#ref1"><sup>[1]</sup></a>
-        </p>
+      <section id="Sports">
+        <article class="bg-dark-surface p-6 rounded-lg shadow-md">
+          <h2 class="text-2xl font-bold mb-4 text-dark-text">Bangladesh Sports News</h2>
+          <p class="mb-4 text-dark-secondary">
+            <strong>Bangladesh rise to 9th in T20 rankings</strong><br>
+            Bangladesh rose to 9th in T20 International rankings following their victory against Afghanistan...
+            <a class="cite text-dark-accent hover:underline" href="#ref4"><sup>[4]</sup></a>
+          </p>
+          <p class="mb-4 text-dark-secondary">
+            <strong>Bangladeshi footballers to return home from Nepal Thursday: Embassy</strong><br>
+            Members of the Bangladesh national football team, along with a small group of Bangladeshi nationals...
+            <a class="cite text-dark-accent hover:underline" href="#ref5"><sup>[5]</sup></a>
+          </p>
+          <p class="text-dark-secondary">
+            <strong>Govt making all-out efforts to ensure safe return of football team from Nepal</strong><br>
+            The government is making all-out efforts to ensure the safe and swift return of the Bangladesh national...
+            <a class="cite text-dark-accent hover:underline" href="#ref6"><sup>[6]</sup></a>
+          </p>
+        </article>
+      </section>
 
-        <p>
-          <strong>Accommodation crisis at Rajshahi University: 68pc students live off-campus</strong>
-          Sakibul Hasan, a student of the 2021–22 academic year in the Department of Persian Language and Literature at Rajshahi University, applied three times for a seat in the dormitory.
+      <section id="International">
+        <article class="bg-dark-surface p-6 rounded-lg shadow-md">
+          <h2 class="text-2xl font-bold mb-4 text-dark-text">International</h2>
+          <p class="text-dark-secondary">
+            <strong>Kim, Putin at Xi's side for massive China military parade</strong><br>
+            All eyes are on how the trio of Xi, Putin and Kim -- who rarely leaves secretive North Korea...
+            <a class="cite text-dark-accent hover:underline" href="#ref7"><sup>[7]</sup></a>
+          </p>
+        </article>
+      </section>
 
-          He even had a professor's recommendation. Yet, he could not get into Shaheed Habibur Rahman Hall.
+      <section id="Education">
+        <article class="bg-dark-surface p-6 rounded-lg shadow-md">
+          <h2 class="text-2xl font-bold mb-4 text-dark-text">University of Sussex offers £4,000 scholarships for Bangladeshi students</h2>
+          <p class="text-dark-secondary">
+            The University of Sussex, UK's first post-war university opened in 1961 is now welcoming Bangladeshi students...
+            <a class="cite text-dark-accent hover:underline" href="#ref8"><sup>[8]</sup></a>
+          </p>
+        </article>
+      </section>
 
-         Forced by circumstance, he now lives in a rented place outside the university. His rent is 2,500 taka, and including meals and transportation, his monthly expenses amount to around 4,000 taka.
-
-         Noting how difficult it is for him to manage this money, Shakibul told Prothom Alo, "Living outside means worrying about safety. I have to spend on rickshaw fare every day. If I stayed in the dormitory, both my costs and concerns would be less."
-
-        Tasbir Hasan, a student of the same academic year in the Department of Anthropology, was luckier. He secured a seat in Shah Makhdum Hall, largely because his elder brother already stayed there. Tasbir said, "The rent in the hall is only 100 taka. Outside, it would have cost me 2000 to 3000 taka per month."
-
-       Yet, since its establishment, this second-oldest university in the country pledged to ensure 100 per cent residential facilities for students. In reality, 68 per cent of students now have to live outside the campus.
-
-        <a class="cite" href="#ref2"><sup>[2]</sup></a>
-        </p>
-
-        <p>
-          <strong>Chief Adviser to hold meeting with 7 more political parties Tuesday</strong>
-          Chief Adviser Professor Muhammad Yunus will hold a meeting with leaders of seven more political parties at the State Guest House Jamuna on Tuesday afternoon.
-
-         Chief Adviser's press wing confirmed the matter Monday afternoon saying that the meeting will begin at 5:00 pm tomorrow.
-
-         <a class="cite" href="#ref3"><sup>[3]</sup></a>
-        </p>
-      </article>
-    </section>
-
-    <section id="Sports" class="Sports">
-      <article>
-        <h2>Bangladesh Sports News</h2>
-
-        <p>
-          <strong>Bangladesh rise to 9th in T20 rankings</strong>
-         Bangladesh rose to 9th in T20 International rankings following their victory against Afghanistan in the Asia Cup on Tuesday.
-
-        The ranking improvement is also the outcome of their consistent performance in the last three months. Since they slipped to 10th in May, Bangladesh won series against Sri Lanka, Pakistan and Netherlands.
-
-        Also they won two matches out of three in the Asia Cup that eventually resulted in rising to 9th in this format.  <a class="cite" href="#ref4"><sup>[4]</sup></a>
-        </p>
-
-        <p>
-          <strong>Bangladeshi footballers to return home from Nepal Thursday: Embassy</strong>
-         Members of the Bangladesh national football team, along with a small group of Bangladeshi nationals stranded in Nepal, are scheduled to return home on Thursday by a special aircraft.
-
-         A total of 54 passengers, including 38 football team members, around a dozen journalists, and others, will be on board, a diplomat at the Bangladesh Embassy in Kathmandu told news agency UNB on Wednesday night.
-
-          <a class="cite" href="#ref5"><sup>[5]</sup></a>
-        </p>
-
-        <p>
-          <strong>Govt making all-out efforts to ensure safe return of football team from Nepal</strong>
-          The government is making all-out efforts to ensure the safe and swift return of the Bangladesh national football team from Nepal, where political unrest has disrupted flight operations and delayed their scheduled departure.
-
-The team was scheduled to depart Tribhuvan International Airport at 3 pm local time today, said a press release issued by the Chief Adviser's Press Wing tonight.
-
-          <a class="cite" href="#ref6"><sup>[6]</sup></a>
-        </p>
-      </article>
-    </section>
-
-    <section id="International" class="International">
-      <article>
-        <h2>International</h2>
-
-        <p>
-          <strong>Kim, Putin at Xi's side for massive China military parade</strong>
-          All eyes are on how the trio of Xi, Putin and Kim -- who rarely leaves secretive North Korea -- interact with each other in a highly choreographed photo opportunity seen as a coup for China on the world stage.on.
-          <a class="cite" href="#ref7"><sup>[7]</sup></a>
-        </p>
-      </article>
-    </section>
-
-    <section id="Education" class="Education">
-      <article>
-        <h2>University of Sussex offers £4,000 scholarships for Bangladeshi students</h2>
-        <p>
-          The University of Sussex, UK's first post-war university opened in 1961 is now welcoming Bangladeshi students for postgraduate study with the £4,000 Sussex Bangladesh Scholarship, reports a press release.
-
-         Bangladesh has become one of Sussex's fastest-growing student communities. In 2025, postgraduate applications from Bangladesh rose by 27 per cent, while undergraduate enrolments increased by 50 per cent.. <a class="cite" href="#ref8"><sup>[8]</sup></a>
-        </p>
-      </article>
-    </section>
-
-    <!-- References block -->
-    <section id="references" class="references">
-      <h2>References</h2>
-      <ol>
-        <li id="ref1">
-          47th BCS preliminary exam to be held tomorrow <a href="https://en.prothomalo.com/youth/employment/1jz6x6rel6">https://en.prothomalo.com/youth/employment/1jz6x6rel6</a>
-        </li>
-        <li id="ref2">
-          Accommodation crisis at Rajshahi University: 68pc students live off-campus
-          <a href="https://en.prothomalo.com/bangladesh/tvv6gspwpu" target="_blank"
-            rel="noopener noreferrer">https://en.prothomalo.com/bangladesh/tvv6gspwpu</a>
-        </li>
-        <li id="ref3">
-         Chief Adviser to hold meeting with 7 more political parties Tuesday. <a href="https://en.prothomalo.com/bangladesh/government/rcntng84w5" target="_blank"
-            rel="noopener noreferrer">https://en.prothomalo.com/bangladesh/government/rcntng84w5</a>
-        </li>
-        <li id="ref4">
-          Bangladesh rise to 9th in T20 rankings" Cricket Site.
-          <a href="https://example.com/match1" target="_blank"
-            rel="noopener noreferrer">https://en.prothomalo.com/sports/cricket/hkkhvva9q3</a>
-        </li>
-        <li id="ref5">
-          Bangladeshi footballers to return home from Nepal Thursday: Embassy
-          <a href="https://en.prothomalo.com/sports/football/zehqt2gdwm" target="_blank"
-            rel="noopener noreferrer">https://en.prothomalo.com/sports/football/zehqt2gdwm</a>
-        </li>
-        <li id="ref6">
-          Govt making all-out efforts to ensure safe return of football team from Nepal
-          <a href="https://example.com/match3" target="_blank"
-            rel="noopener noreferrer">https://example.com/match3</a>
-        </li>
-        <li id="ref7">
-          "Kim, Putin at Xi's side for massive China military parade
-          <a href="https://en.prothomalo.com/international/asia/lm9pey5b4n" target="_blank"
-            rel="noopener noreferrer">https://en.prothomalo.com/international/asia/lm9pey5b4n</a>
-        </li>
-        <li id="ref8">
-          University of Sussex offers £4,000 scholarships for Bangladeshi students
-          <a href="https://en.prothomalo.com/youth/education/lq7rk8ip9g" target="_blank"
-            rel="noopener noreferrer">https://en.prothomalo.com/youth/education/lq7rk8ip9g</a>
-        </li>
-      </ol>
-    </section>
+      <section id="references" class="references">
+        <article class="bg-dark-surface p-6 rounded-lg shadow-md">
+          <h2 class="text-2xl font-bold mb-4 text-dark-text">References</h2>
+          <ol class="list-decimal pl-6 space-y-2 text-dark-secondary">
+            <li id="ref1"><a href="https://en.prothomalo.com/youth/employment/1jz6x6rel6" class="text-dark-accent hover:underline">47th BCS preliminary exam to be held tomorrow</a></li>
+            <li id="ref2"><a href="https://en.prothomalo.com/bangladesh/tvv6gspwpu" class="text-dark-accent hover:underline">Accommodation crisis at Rajshahi University: 68pc students live off-campus</a></li>
+            <li id="ref3"><a href="https://en.prothomalo.com/bangladesh/government/rcntng84w5" class="text-dark-accent hover:underline">Chief Adviser to hold meeting with 7 more political parties Tuesday</a></li>
+            <li id="ref4"><a href="https://en.prothomalo.com/sports/cricket/hkkhvva9q3" class="text-dark-accent hover:underline">Bangladesh rise to 9th in T20 rankings</a></li>
+            <li id="ref5"><a href="https://en.prothomalo.com/sports/football/zehqt2gdwm" class="text-dark-accent hover:underline">Bangladeshi footballers to return home from Nepal Thursday: Embassy</a></li>
+            <li id="ref6"><a href="https://example.com/match3" class="text-dark-accent hover:underline">Govt making all-out efforts to ensure safe return of football team from Nepal</a></li>
+            <li id="ref7"><a href="https://en.prothomalo.com/international/asia/lm9pey5b4n" class="text-dark-accent hover:underline">Kim, Putin at Xi's side for massive China military parade</a></li>
+            <li id="ref8"><a href="https://en.prothomalo.com/youth/education/lq7rk8ip9g" class="text-dark-accent hover:underline">University of Sussex offers £4,000 scholarships for Bangladeshi students</a></li>
+          </ol>
+        </article>
+      </section>
+    </div>
   </main>
 
-  <footer>
-    <p>© 2025 Redwan Shahriar Shubho — News 17</p>
+  <footer class="bg-dark-surface text-dark-text text-center py-4">
+    <p class="text-sm">© 2025 News 17 - All Rights Reserved</p>
   </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
